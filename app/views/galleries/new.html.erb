@@ -1,0 +1,28 @@
+<% content_for :submenu do %>
+	<%= link_to 'View Other Galleries', :controller => 'galleries' %>
+<% end %>
+
+<div class="padding_left_10px">
+	<%= page_title 'Create a New Gallery' %>
+	
+	<% form_for(@gallery, :url => { :controller=>"file_upload" }) do |f| %>
+	  <%= f.error_messages %>
+	  <%= f.hidden_field :user_id %>
+	  <%= f.hidden_field :private, :value=>0 %>
+	  <%= f.hidden_field :layout, :value=>'standard' %>
+	  <p>
+	    Gallery Title:<br />
+	    <%= f.text_field :title, :size => 46 %>
+	  </p>
+	  <p>
+		Gallery Description:<br />
+	    <%= f.text_area :description, :rows => 5 %>
+	  </p>
+	  <p>
+	  	Private: <%= f.check_box :private%>
+	  </p>
+	  <p>
+	    <%= f.submit "Create Gallery" %>
+	  </p>
+	<% end %>
+</div>

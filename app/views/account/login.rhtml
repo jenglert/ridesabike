@@ -1,0 +1,14 @@
+<% content_for :submenu do %>
+	<%= link_to "Create Account", :action => "signup" %> |
+	<%= link_to "Forgot Password", :controller => 'forgot_password' %>
+<% end %>
+<table border="0" width="100%" align="center" cellpadding="10px" class="loginmaintable">
+	<tr align="center" height="150px" >
+		<td>
+			<%= render :partial => 'shared/whyRidesABike' %>
+		</td>
+		<td>
+			<%= render :partial => 'shared/login'%>
+		</td>
+	</tr>
+</table>

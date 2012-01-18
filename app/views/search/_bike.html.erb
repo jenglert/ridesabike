@@ -1,0 +1,5 @@
+<div class="searchResultDiv <%= last ? '' : 'searchResultDivNotLast' %>">
+	<%= count.to_s %>. <span class="searchResultItem"><%= link_to result.name, result%></span> <br />
+	<span class="searchResultBlurb"><%= result.year %> <%= result.make %> <%= result.model %> - <%= result.description %></span>
+	
+</div>

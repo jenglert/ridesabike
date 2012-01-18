@@ -1,0 +1,24 @@
+<div class="persondiv">
+
+<div class="personViewContents">
+	<h2><%=link_to (user.login), :controller => 'users', :action => 'show', :id => user.id %></h2>
+	<div style="float:left" >
+	  <%= image_tag(user.imageURL, :border => 0, :alt => user.imageURL )%>
+	</div>
+	<div class="float_left personalInfo">
+		Age: <%=years_ago(user.birthday) if !user.birthday.nil?%> years old
+		<br />
+		Years Riding: <%=h user.years_riding%>
+		<br />
+		Motto: <%=h user.motto%>
+	</div>
+	<div style="clear:both" />
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	
+	// Create the nifty rounded corner outline	
+   	Nifty("div.persondiv","transparent");
+});
+</script>

@@ -1,0 +1,9 @@
+<div class="padding_left_10px">
+	<h1>Search Results: "<%= params[:q]%>"</h1>
+	<h2>Found <%= @results.size%> results</h2>
+	
+	<% @results.each_with_index { |result, count| %>
+		<%=render :partial => "search/#{dom_class(result)}", :locals => { :result => result, :count => count + 1, :last => count == @results.size - 1} %>	
+	<% } %>
+</div>
+	

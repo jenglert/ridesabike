@@ -1,0 +1,33 @@
+<% content_for :submenu do %>
+<%= link_to 'Create Blog Post', :controller => 'blog_posts', :action => 'new' %>
+<% end %>
+<div class="padding_left_10px">
+    <%= page_title 'Latest Blog Posts' %>
+    <table class="bloglisttable">
+        <% for blogpost in @blog_posts %>
+        <tr>
+            <td class="blogtitle">
+                <%= link_to h(blogpost.title), :controller => 'blog_posts', :action => 'show' , :id => blogpost.id %>
+			    <span class="blogByLine">
+			    	by: <%= link_to blogpost.user.login, blogpost.user %>
+                </span>
+            </td>
+            <td>
+                <span class="blogCommentsCounter"><%= link_to '[View ' + pluralize(blogpost.blog_comments.size, ' Comment') + ']', blogpost %>
+                </span>
+            </td>
+            <td class="blogpostdate">
+                <%= blogpost.created_at.to_s(:date_time12) %>
+            </td>
+        </tr>
+        <tr>
+            <td class="blogpost" colspan="3">
+                <%= blogpost.post %>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+	
+	<br />
+	<%= link_to image_tag("/images/rss-large.jpg"), :controller => 'blog_posts', :format => 'xml' %>
+</div>

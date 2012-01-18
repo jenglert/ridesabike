@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<%= render :partial => 'layouts/head' %>
+<body>
+<table class="mainLayoutTable">
+    <tr>
+        <td class="mainLayoutTable_header">
+            <span class="mainsitename float_left"><%=image_tag "/images/ridesabikelogo.png" %></span>
+			<div class="float_left searchEntryDiv" >
+				<% form_tag '/search', :method => :get do %>
+					<%= text_field_tag 'q', params[:q], :size => 10 %> <br />
+					<%= submit_tag 'Search', :name => nil %>
+				<% end %>
+			</div>
+			<div class="float_left" >
+				<ul>
+	            	<% if logged_in? -%>
+						<li>
+							<%= link_to "Logout <span class='currentUserSpan'>[#{current_user.login}]</span>", {:controller => "account", :action => "logout" } %>
+						</li>
+		            <%else -%>
+						<li><%= link_to 'Join', :controller => 'account', :action => 'signup' %></li>
+			            <li><%= link_to 'Login', {:controller => "account", :action => "login" } %></li>
+		            <%end -%>
+					<li class="<%= @currentSection == 'users' ? 'selectedMenuItem' : ''%>">
+						<%= link_to 'Users', :controller => 'users'%>
+					</li>
+					<li class="<%= @currentSection == 'blogPosts' ? 'selectedMenuItem' : ''%>">
+						<%= link_to 'Blog Posts', :controller => 'blog_posts' %>
+					</li>
+					<li class="<%= @currentSection == 'photos' ? 'selectedMenuItem' : ''%>">
+						<%= link_to 'Photos', :controller => 'galleries' %>
+					</li>
+				</ul>	
+			</div>
+        </td>
+        <td rowspan="2" class="mainLayoutTable_right">
+        </td>
+    </tr>
+    <tr>
+        <td class="mainLayoutTable_body">
+			
+			<% if !flash[:notice].nil? %>
+	            <p id="notice" class="flashBlock flashNotice">
+	                <%= flash[:notice] %>
+	            </p>
+			<% end %>
+			<% if !flash[:error].nil? %>
+	            <p id="error" class="flashBlock flashError">
+	                <%= flash[:error] %>
+	            </p>
+			<% end %>
+            <%= yield %>
+    </tr>
+    <tr>
+        <td colspan="2" class="mainLayoutTable_footer">
+            <a href="mailto:webmaster@ridesabike.com">Email the webmaster</a>
+        </td>
+    </tr>
+</table>
+<%= render :partial => 'layouts/analytics' %>
+</body>
+</html>

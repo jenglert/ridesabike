@@ -1,0 +1,40 @@
+<div class="logindiv">
+    <% form_tag do -%>
+	<h3>Login</h3>
+    <table>
+        <tr>
+            <td align="right">
+                <label for="login">
+                    Username:
+                </label>
+            </td>
+            <td>
+                <%= text_field_tag 'login', nil, :size => 12 %>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <label for="password">
+                    Password:
+                </label>
+            </td>
+            <td>
+                <%= password_field_tag  'password', nil, :size => 12 %>
+            </td>
+        </tr>
+    </table>
+    <!-- Uncomment this if you want this functionality
+    <p><label for="remember_me">Remember me:</label>
+    <%= check_box_tag 'remember_me' %></p>
+    -->
+    <p>
+        <%= submit_tag 'Log in' %>
+    </p>
+    <% end -%>
+    <%= link_to "Create Account", :action => "signup" %> <br />
+	<%= link_to "Forgot Password", :controller => 'forgot_password' %>
+</div>
+<script type="text/javascript">	
+	// Create the nifty rounded corner outline	
+   	Nifty("div.logindiv","transparent");
+</script>

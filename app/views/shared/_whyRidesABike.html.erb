@@ -1,0 +1,21 @@
+<div class="whyridesabike" align="left">
+	<h3>What is this site about?</h3>
+	
+	<p><em>Rides-A-Bike.com</em> offers cyclists the ability to have a customizable home page.  Users can upload photos,
+	blog, and participate in a cycling oriented community. Each user will be given an easy to remember <abbr title="Universal Resource Locator">URL</abbr> 
+	that they can show their friends. My personal page is located at <a href="http://jim.ridesabike.com">http://jim.ridesabike.com</a></p>
+	
+	<p>
+		Anyone can participate!  <%= link_to "Creating an account", { :action => "signup" } %> and 
+		personalizing your page is easy and painless.  Feel free to check out other users' profiles.  Comment on photo
+		galleries or blog postings.  Get great ideas for upcoming cycling trips!
+	</p>
+</div>
+
+<script type="text/javascript">	
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.whyridesabike","transparent");
+});
+</script>
+	

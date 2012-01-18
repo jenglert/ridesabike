@@ -1,0 +1,145 @@
+<div class="picturelistdiv">
+	<h3>Photos</h3>
+<% 
+# Retrive the pictures to show either by the current id or by the logged in user
+if(params[:id].nil? and current_user != :false)
+	@pictures = Picture.find_all_by_user_id(current_user.id)
+elsif (!params[:id].nil?)
+	@pictures = Picture.find_all_by_user_id(params[:id])
+else 
+	# just toss up a random picture
+	@pictures = Picture.find(:all)
+end
+
+	# Iterate over all the pictures and set any that are in a private gallery to nil.
+	@pictures.each_with_index { |picture, i|
+		gallery = Gallery.find_by_id(picture.gallery_id)
+		if gallery.private
+			@pictures[i] = nil
+		end
+	}
+
+	# Remove all the nil items
+	@pictures.compact!
+
+	#randomize the list of pictures
+	@pictures = @pictures.sort_by { rand }
+%>
+
+<div class="picturelisttable">
+	<% bike = @pictures[0]%>
+<table width="100%" >
+	<tr align="center">
+		<td colspan="3" class="bikeImageRow">
+			<span id="pictureImageSpan" >
+				<%= if(@pictures.length > 0 )
+						link_to image_tag(getThumbnail(@pictures[0].imageURL), :border => 0, :alt => escape_javascript(@pictures[0].title) ), :controller => 'pictures', :action => 'show', :id => @pictures[0].id
+				end%>
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" align="center">
+			<h3>
+				<span id="pictureTitleSpan" >
+					<%= if(@pictures.length > 0 )
+						escape_javascript(@pictures[0].title)
+					end %>
+				</span>
+			</h3>
+		</td>
+	</tr>
+	<tr align="center">
+		<td width="33%">
+			<span id="picturePrevButton">
+				<a onclick="prevPicture()">PREV</a>
+			</span>
+		</td>
+		<td width="33%"><span id="pictureNameSpan"></span></td>
+		<td width="33%">
+			<span id="pictureNextButton">
+				<a onclick="nextPicture()">NEXT</a>
+			</span>
+		</td>
+	</tr>
+</table>
+<br />
+</div>	
+
+<!-- If the user is looking at thier own profile, let them add a picture -->
+<% if(params[:id].nil? and current_user != :false) %>
+	<div class="addPicture" align="right">
+	   <%= link_to 'Add a Photo Gallery', {:controller => "galleries", :action => "new" }%> 
+	</div>
+<% end %> 
+
+</div>
+
+<script type="text/javascript">
+var currentPicture = 0;
+
+var pictures = new Array(
+<% for picture in @pictures %>
+   {id: '<%= picture.id%>', imageURL: '<%= link_to image_tag(getThumbnail(picture.imageURL), :border => 0, :alt => escape_javascript(picture.title) ), :controller => 'pictures', :action => 'show', :id => picture.id%>', title: '<%=escape_javascript(picture.title) %>'}
+      <% if picture != @pictures[@pictures.length - 1] %>,<% end%>  
+<% end %>
+);
+
+// Displays the current image and image title.  This function will hide or
+// show the 'next' and 'prev' buttons appropriately depending on whether they should
+// be shown.
+function displayPictures() {
+	
+	if(pictures.length == 0) {
+		document.getElementById('pictureImageSpan').innerHTML = "No pictures uploaded yet."
+		document.getElementById('picturePrevButton').style.display= 'none';
+		document.getElementById('pictureNextButton').style.display= 'none';
+		return;
+	}
+	
+	document.getElementById('pictureImageSpan').innerHTML = pictures[currentPicture].imageURL;
+	document.getElementById('pictureTitleSpan').innerHTML = pictures[currentPicture].title;
+	
+	if(currentPicture == 0) {
+		document.getElementById('picturePrevButton').style.display= 'none';
+	}
+	else {
+		document.getElementById('picturePrevButton').style.display= 'block';
+	}
+	
+	if (currentPicture == pictures.length - 1) {
+		document.getElementById('pictureNextButton').style.display= 'none';
+	} 
+	else {
+		document.getElementById('pictureNextButton').style.display= 'block';
+	}
+}
+
+// Show the next picture if one is available
+function nextPicture() {
+	if(currentPicture < pictures.length - 1 ) {
+		currentPicture++;
+	}
+	
+	displayPictures();
+}
+
+// Show the previous picture if one is available.
+function prevPicture() {
+	if(currentPicture > 0) {
+		currentPicture--;
+	}
+	
+	displayPictures();
+}
+
+
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.picturelistdiv","transparent");
+   
+   // Display the first bike initially
+   displayPictures();
+});
+
+</script>

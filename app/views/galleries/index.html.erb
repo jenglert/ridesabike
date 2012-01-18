@@ -1,0 +1,26 @@
+<% content_for :submenu do %>
+	<%= link_to "Create A Gallery", :controller => 'galleries', :action => 'new' %>
+<% end %>
+
+<div class="padding_left_10px">
+	<%= page_title 'Photo Galleries' %>
+	
+	<table class="galleryIndex">
+	  <tr>
+	    <th>Name</th>
+	    <th>Author</th>
+		<th>Created</th>
+		<th>Comments</th>
+	  </tr>
+	
+	<% for gallery in @galleries %>
+	  <tr>
+	    <td><%= link_to h(gallery.title), gallery %></td>
+		<% # Only display the link to the user if the user is present. I'm not sure how a user would not be present. %>
+		<td><%= link_to( h(User.find_by_id(gallery.user_id).login), :controller => 'Users', :action => 'show', :id => gallery.user_id) unless User.find_by_id(gallery.user_id).nil? %></td>	
+		<td><%= gallery.created_at.to_s(:date) %></td>
+		<td><%= link_to gallery.gallery_comments.size.to_s + ' comments' , gallery %></td>
+	  </tr>
+	<% end %>
+	</table>
+</div>

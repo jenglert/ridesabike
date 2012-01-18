@@ -1,0 +1,56 @@
+<div class="padding_left_10px">
+<%= page_title 'Edit Gallery' %>
+<% form_for(@gallery) do |f| %>
+<%= f.error_messages %>
+<p>
+    Title:
+    <br/>
+    <%= f.text_field :title %>
+</p>
+<p>
+    Description:
+    <br/>
+    <%= f.text_area :description %>
+</p>
+<p>
+	Layout:
+    <br/>
+    <%= f.collection_select :layout, ['standard', 'blank'], 'to_s', 'to_s' %>
+</p>
+<p>
+    Private:
+    <br/>
+    <%= f.check_box :private %>
+</p>
+<p>
+	<%= link_to 'Add Pictures', :controller => 'file_upload', :action => 'index', :id => @gallery.id %>
+</p>
+<p>
+    <%= f.submit "Update" %>
+</p>
+<% end %>
+<table>
+<% for picture in @pictures %>
+<tr>
+    <td>
+        <%= link_to image_tag( picture.thumbnail ), :controller => "pictures", :action => "show", 
+                                                     :id => picture.id %>
+        <div style="width: 400px; padding-bottom: 35px">
+        	<%=h picture.title %>
+		</div>
+    </td>
+	<td>
+		<%= link_to "Edit Description", :controller => 'pictures', :action => 'edit', :id => picture.id %>
+	</td>
+	<td>
+		<%= link_to 'Delete Image', picture, :method => :delete, 
+            :confirm => 'Are you sure you wish to delete this picture?' %>
+	</td>
+</tr>
+<% end %>
+</table>
+<p>
+	<%= link_to 'Add Pictures', :controller => 'file_upload', :action => 'index', :id => @gallery.id %>
+</p>
+<%= link_to 'Show', @gallery %> | <%= link_to 'Back', :back %>
+</div>

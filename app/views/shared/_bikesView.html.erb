@@ -1,0 +1,112 @@
+	<div class="bikelistdiv">
+	<h3>Bikes</h3>
+
+<% 
+# Retrive the bikes to show either by the current id or by the logged in user
+if(params[:id].nil? and current_user != :false)
+	@bikes = Bike.find_all_by_user_id(current_user.id)
+elsif (!params[:id].nil?)
+	@bikes = Bike.find_all_by_user_id(params[:id])
+else 
+	# broken request
+end
+
+%>
+
+<div class="bikelisttable">
+	<% bike = @bikes[0]%>
+<table width="100%">
+	<tr>
+		<td colspan="3" class="bikeImageRow">
+			<span id="bikeImageSpan" >
+				
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<td><span id="bikePrevButton"><a onclick="prevBike()">PREV</a></span></td>
+		<td align="center"><span id="bikeNameSpan"></span></td>
+		<td><span id="bikeNextButton"><a onclick="nextBike()">NEXT</a></span></td>
+	</tr>
+</table>
+</div>	
+
+<!-- If the user is looking at thier own bike, let them add a bike -->
+<% if((params[:id].nil? and current_user != :false))%>
+<div class="addBike">
+ <%= link_to 'Add a New Bike', {:controller => "bikes", :action => "new", :person_id => current_user.id } %> 
+</div>
+<% end %> 
+
+</div>
+
+<script type="text/javascript">
+var currentBike = 0;
+
+var bikes = new Array(
+<% for bike in @bikes %>
+   {name: '<%= link_to bike.name, :controller => 'bikes', :action => 'show', :id => bike.id%>', imageURL: '<%= image_tag(getThumbnail(bike.imageURL), :border => 0, :alt => bike.name )%>'}
+      <% if bike != @bikes[@bikes.length - 1] %>,<% end%>  
+<% end %>
+);
+
+// Displays the current bike image and bike title.  This function will hide or
+// show the 'next' and 'prev' buttons appropriately depending on whether they should
+// be shown.
+function displayBikes() {
+	if(bikes.length == 0) {
+		document.getElementById('bikeImageSpan').innerHTML = '<b>None Yet!</b>';
+		document.getElementById('bikePrevButton').style.display= 'none';		    
+		document.getElementById('bikeNextButton').style.display= 'none';
+		document.getElementById('bikeNameSpan').innerHTML = '';
+		
+		return;
+	}
+	
+	document.getElementById('bikeImageSpan').innerHTML = bikes[currentBike].imageURL;
+		    
+	document.getElementById('bikeNameSpan').innerHTML = bikes[currentBike].name;
+	
+	if(currentBike == 0) {
+		document.getElementById('bikePrevButton').style.display= 'none';
+	}
+	else {
+		document.getElementById('bikePrevButton').style.display= 'block';
+	}
+	
+	if (currentBike == bikes.length - 1) {
+		document.getElementById('bikeNextButton').style.display= 'none';
+	} 
+	else {
+		document.getElementById('bikeNextButton').style.display= 'block';
+	}
+}
+
+// Show the next bike if one is available
+function nextBike() {
+	if(currentBike < bikes.length - 1 ) {
+		currentBike++;
+	}
+	
+	displayBikes();
+}
+
+// Show the previous bike if one is available.
+function prevBike() {
+	if(currentBike > 0) {
+		currentBike--;
+	}
+	
+	displayBikes();
+}
+
+
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.bikelistdiv","transparent");
+   
+   // Display the first bike initially
+   displayBikes();
+});
+
+</script>

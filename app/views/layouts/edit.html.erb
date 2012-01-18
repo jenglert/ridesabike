@@ -1,0 +1,48 @@
+<h1>Edit your personal settings</h1>
+
+<%= error_messages_for :user %>
+
+<% form_for(@user) do |f| %>
+  <p>
+	<b>Name</b><br />
+	<%= f.text_field :name %>  
+  </p>
+  <p>
+    <b>Birthday</b><br />
+    <%= f.date_select :birthday, :start_year => 1900,
+                                 :end_year => Date.today.year,
+                                 :default => {:day => 1, :month => 1, :year => 1975 } %>
+  </p>
+
+  <p>
+    <b>Description</b><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <b>Motto</b><br />
+    <%= f.text_field :motto %>
+  </p>
+  <p>
+    <b>Years Riding</b><br />
+    <%= f.text_field :years_riding %>
+  </p>
+
+
+  <p>
+	<b>Bikes:</b><br />
+	<ul>
+		<% for bike in @user.bikes %>
+			<li>
+				<%= h bike.year%> <%= h bike.make%> - <%= h bike.model%>
+				
+			</li>
+		<% end %>
+	</ul>
+  </p>
+  
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user %> |

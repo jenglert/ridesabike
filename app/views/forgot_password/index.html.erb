@@ -1,0 +1,11 @@
+<div class="padding_left_10px" >
+	<%= page_title 'Reset Password' %>
+	<p>
+		Enter your email in the text box below.  We will email you a new password promptly.
+	</p>
+	<% form_tag :action => 'create' do %>
+		<%= text_field_tag :email %>
+		<%= submit_tag 'Reset Password' %>
+	<% end %>
+	<br />
+</div>

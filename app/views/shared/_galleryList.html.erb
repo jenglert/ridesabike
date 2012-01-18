@@ -1,0 +1,17 @@
+<div class="gallerylistdiv">
+<h3>Galleries</h3>
+<ul>
+	<% for gallery in Gallery.find_all_by_user_id_and_private(params[:id], false).sort! {|a, b| b.created_at <=> a.created_at }%>
+		<li><%= render :partial => 'shared/galleryItem', :object => gallery%></li>
+	<% end %>
+</ul>  
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.gallerylistdiv","transparent");
+   
+});
+
+</script>

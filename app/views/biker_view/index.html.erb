@@ -1,0 +1,27 @@
+<% content_for :submenu do %>
+	<% if(logged_in? && current_user.id = @user.id) %>
+		<%= link_to 'Edit Profile', :controller => 'users', :action => 'edit', :id => @user.id%>
+	<% end %>
+<% end %>
+
+<table class="bikerViewTable">
+	<tr valign="top">
+		<td colspan="2" class="bikerViewTableTdSingle">
+			<%= render :partial => 'shared/personView', :locals => {:user => @user} %>
+		</td>
+	</tr>
+	<tr>	
+		<td width="80%" colspan="2" class="bikerViewTableTdSingle">
+			<%= render :partial => 'shared/blogsView' %>			
+		</td>	
+	</tr>
+	<tr valign="top">
+		<td class="bikerViewTableTdDouble"`>
+			<%= render :partial => 'shared/bikesView' %>
+
+		</td>
+		<td class="bikerViewTableTdDouble">
+			<%= render :partial => 'shared/galleryList' %>
+		</td>
+	</tr>	
+</table>

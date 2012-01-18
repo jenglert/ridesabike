@@ -1,0 +1,64 @@
+<% content_for :submenu do %>
+	<%= link_to 'Terms Of Service', :controller => 'terms_of_service'%>
+<% end %>
+
+<div class="padding_left_10px">
+	<%= page_title 'Create an Account' %>
+	
+	<% form_for :user do |f| -%>
+	
+	<table>
+		<tr>
+			<td><label for="login">*Login:</label></td>
+			<td><%= f.text_field :login, :size => 30 %></td>
+		</tr>
+		<tr>
+			<td><label for="email">*Email:</label></td>
+			<td><%= f.text_field :email, :size => 30 %></td>
+		</tr>
+		<tr>
+			<td><label for="password">*Password:</label></td>
+			<td><%= f.password_field :password, :size => 30 %></td>
+		</tr>
+		<tr>
+			<td><label for="password_confirmation">*Confirm Password:</label></td>
+			<td><%= f.password_field :password_confirmation, :size => 30 %></td>
+		</tr>
+		<tr>
+			<td><label for="birthday">Birthday:</label></td>
+			<td><%= f.date_select :birthday, :start_year => 1900,
+	                                 :end_year => Date.today.year,
+	                                 :default => {:day => 1, :month => 1, :year => 1975 } %></td>
+		</tr>
+		<tr>
+			<td><label for="description">Description:</label></td>
+			<td><%= f.text_area :description, :rows => 2, :cols => 27 %></td>
+		</tr>
+		<tr>
+			<td><label for="motto">Motto:</label></td>
+			<td><%= f.text_area :motto, :rows => 2, :cols => 27%></td>
+		</tr>
+		<tr>
+			<td><label for="years_riding">Years Riding:</label></td>
+			<td><%= f.collection_select :years_riding, 0...30, 'to_s', 'to_s' %></td>
+		</tr>
+		<tr>
+			<td><label for="imageURL">Profile image:</label></td>
+			<td><%= f.file_field :profile_image %>
+	  </td>
+		<tr>
+			<td colspan="2" align="center"><%= submit_tag 'Sign up' %></td>
+		</tr>
+	</table>
+	<% end -%>
+
+</div>
+
+
+<script type="text/javascript">	
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.signupdiv","transparent");
+	
+});
+</script>

@@ -1,0 +1,4 @@
+<div class="searchResultDiv <%= last ? '' : 'searchResultDivNotLast' %>">
+	<%= count.to_s %>. <%= link_to image_tag(getThumbnail(result.imageURL), :height => 100), result %>
+	<span class="searchResultItem"><%= link_to result.title, result%></span> <br />
+</div>

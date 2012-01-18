@@ -1,0 +1,44 @@
+<div class="galleriesviewdiv" align="left">
+	
+	<h3 align="center">Picture Galleries</h3>
+<%
+	@galleries = Gallery.find_all_by_private(false)
+	@galleries = @galleries.sort_by { rand }
+	@gallery = @galleries[0]
+	@user = User.find_by_id(@gallery.user_id)
+	@pictures = Picture.find_all_by_gallery_id(@gallery.id)
+	@picture = @pictures[0]
+%>
+
+<table width="100%">
+	<tr>
+		<td>
+			<h3><%= link_to @gallery.title, :controller=> 'galleries', :action => 'show', :id=> @gallery.id%></h3>
+			<% if (!@user.nil?) %>
+				<div class="gallerycreatedby">created by: <%= link_to @user.login, :controller => 'people', :action => 'show', :id=> @user.id%></div>
+			<% end %>
+			<div class="galleryphotocount">with <%= @pictures.size()%> photos</div>			
+		</td>
+		<td rowspan="2" align="center">
+			<% if (!@picture.nil?)%>
+				<%= link_to image_tag(getThumbnail(@picture.imageURL), :border => 0, :alt => @picture.title ), :controller => 'galleries', :action => 'show', :id=> @gallery.id%>
+			<% end%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="blogpost">
+				<b>Description:</b></em><%= truncate(@gallery.description, 100, '...')%>
+			</div>			
+		</td>
+	</tr>
+</table>
+</div>
+
+<script type="text/javascript">	
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.galleriesviewdiv","transparent");
+});
+</script>
+	

@@ -1,0 +1,28 @@
+<% content_for :submenu do %>
+  <%= link_to "View Galleries", :controller => 'galleries' %>
+<% end %>
+
+<div class="padding_left_10px">
+	<%= page_title 'Pictures'%>
+	
+	<table>
+	  <tr>
+		<th>Image</th>
+	    <th>Title</th>
+		<th>Gallery</th>
+	  </tr>
+	
+	<% for picture in @pictures %>
+	  <% gallery = Gallery.find(picture.gallery_id)%>
+	  <tr>
+		<td><%= link_to image_tag( picture.thumbnail ), picture%></td>
+	    <td><%=h picture.title %></td>
+		<td><%= link_to gallery.title, gallery %></td>
+	  </tr>
+	<% end %>
+	</table>
+	
+	<br />
+	
+	<%= link_to 'New pictures', new_picture_path %>
+</div>

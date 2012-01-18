@@ -1,0 +1,52 @@
+<div class="blogpostsdiv">
+	<h3>Blog Posts</h3>
+
+<% 
+# Retrieves either the requested user's blog or the current user's blog.
+if(params[:id].nil? and current_user != :false)
+	@blogposts = BlogPost.find_all_by_user_id(current_user.id)
+elsif (!params[:id].nil?)
+	@blogposts = BlogPost.find_all_by_user_id(params[:id])
+else 
+	# Broken request
+end
+
+# Sort the blog posts in the correct order
+@blogposts.sort! do |a,b|
+   b.created_at <=> a.created_at
+end
+
+%>
+
+<table class="bloglisttable">
+<% for blogpost in @blogposts %>
+	<tr>
+	 <td class="blogtitle">
+	   <%= link_to h(blogpost.title), :controller => 'blog_posts', :action => 'show' , :id => blogpost.id %>
+	 </td>
+	 <td class="blogpostdate">
+	 	<%= blogpost.created_at.to_s(:date_time12) %>
+	 </td>
+	</tr>
+	<tr>
+ 	 <td class="blogpost" colspan="2">
+	  <%= blogpost.post %>
+	 </td>
+	</tr>
+<% end %>
+</table>	
+
+<!-- If the user is looking at thier own blog, let them add a post -->
+<% if(params[:id].nil? and current_user != :false) %>
+<div class="addablogpost">
+ <%= link_to 'Add a Post', {:controller => "blog_posts", :action => "new", :user_id => current_user.id } %> 
+</div>
+<% end %> 
+
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+   Nifty("div.blogpostsdiv","transparent");
+});
+</script>

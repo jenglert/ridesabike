@@ -1,0 +1,60 @@
+<% content_for :submenu do %>
+  
+<% end %>
+
+<div class="padding_left_10px" >
+	<%= page_title 'Edit Your Profile' %>
+	
+	<%= error_messages_for :user %>
+	
+	<% form_for @user, :html => { :multipart => true } do |f| %>
+	  <p>
+		<b>Login:</b>
+		<%=  @user.login %>  
+	  </p>
+	  <p>
+	    <b>Birthday:</b><br />
+	    <%= f.date_select :birthday, :start_year => 1900,
+	                                 :end_year => Date.today.year,
+	                                 :default => {:day => 1, :month => 1, :year => 1975 } %>
+	  </p>
+	
+	  <p>
+	    <b>Description:</b><br />
+	    <%= f.text_area :description, :rows => 4 %>
+	  </p>
+	  <p>
+	    <b>Motto:</b><br />
+	    <%= f.text_area :motto, :rows => 2 %>
+	  </p>
+	  <p>
+	    <b>Years Riding:</b><br />
+	    <%= f.collection_select :years_riding, 0...30, 'to_s', 'to_s' %>
+	  </p>
+	  	
+	  <p>
+	  	<b>Profile image:</b><br />
+		<%= image_tag @user.imageURL %>
+	  </p>
+	  <p>
+	  	<b>Upload a file for your photo</b><br />
+		<%= f.file_field :profile_image %>
+	  </p>
+	
+	  <p>
+		<b>Bikes(<%= link_to 'Add A Bike', :controller => 'bikes', :action => 'new' %>):</b><br />
+		<%= 'None Uploaded Yet' if @user.bikes.size == 0 %>
+		<ul>
+			<% for bike in @user.bikes %>
+				<li>
+					<%= h bike.year%> <%= h bike.make%> - <%= h bike.model%>
+				</li>
+			<% end %>
+		</ul>
+	  </p>
+	  
+	  <p>
+	    <%= f.submit "Update" %>
+	  </p>
+	<% end %>
+</div> 

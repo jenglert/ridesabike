@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
+	<url><loc>http://www.ridesabike.com/account/login</loc></url>
+	<% for blogPost in BlogPost.find(:all) %>
+		<url><loc>http://www.ridesabike.com/blog_posts/show/<%= blogPost.id %></loc></url>
+	<% end%>
+	<% for bike in Bike.find(:all) %>
+		<url><loc>http://www.ridesabike.com/bikes/show/<%= bike.id %></loc></url>
+	<% end %>
+	<% for gallery in Gallery.find(:all) %>
+		<url><loc>http://www.ridesabike.com/galleries/show/<%=gallery.id %></loc></url>
+	<% end %>
+	<% for user in User.find(:all) %>
+		<url><loc>http://www.ridesabike.com/biker_view/?id=<%= user.id %></loc></url>
+	<% end %>
+</urlset>

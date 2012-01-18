@@ -1,0 +1,42 @@
+<h1>Editing bike</h1>
+
+<%= error_messages_for :bike %>
+
+<% form_for(@bike) do |f| %>
+  <p>
+    <b>Make</b><br />
+    <%= f.text_field :make %>
+  </p>
+
+  <p>
+    <b>Model</b><br />
+    <%= f.text_field :model %>
+  </p>
+
+  <p>
+    <b>Year</b><br />
+    <%= f.text_field :year %>
+  </p>
+
+  <p>
+    <b>Imageurl</b><br />
+    <%= f.text_field :imageURL %>
+  </p>
+
+  <p>
+    <b>Cost</b><br />
+    <%= f.text_field :cost %>
+  </p>
+
+  <p>
+    <b>Description</b><br />
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @bike %> |
+<%= link_to 'Back', bikes_path %>

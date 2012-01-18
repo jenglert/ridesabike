@@ -1,0 +1,50 @@
+<% content_for :submenu do %>
+	<% if logged_in? && current_user.id == @gallery.user_id %>
+		<%= link_to 'Edit', :action => 'edit', :id => @gallery.id %> | 
+		<%= link_to 'Add Pictures', :controller => 'file_upload', :action => 'index', :id => @gallery.id %> |
+ 	<% end %> 
+	<%= link_to "View Other Galleries By " + @gallery.user.login, :controller => 'galleries', :action => 'by_user', :id => @gallery.user_id %> |
+	<%= link_to 'Create a Gallery', :controller => 'galleries', :action => 'new' %>
+<% end %>
+
+<div class="padding_left_10px">
+	
+    <%= page_title(@gallery.title, :align => 'center')%>
+    <h2 align="center"><%= @gallery.description %></h4>
+	
+	<div style="text-align: center" >
+		by: <%= link_to @gallery.user.login, @gallery.user %>
+	</div>
+	<table align="center" cellpadding="20px">
+	    <% i = 0 %>
+	    <% for pictures in @pictures %>
+	    <% i = i + 1 %>
+	    <% if i % 2 == 1 %>
+	    <tr>
+	    <% end %>
+	        <td width="220px">
+	        	<div class="gallery_photo">
+	        		<span></span>
+		            <%= link_to image_tag( pictures.thumbnail ),
+		                :controller => "pictures", :action => "show", :id => pictures.id %>
+		            <br/>
+		            <%=h pictures.title %>
+				</div>
+	        </td>
+	    <% if i % 2 == 0 or i == @pictures.size %>
+	    </tr>
+	    <% end %>
+	    <% end %>
+	</table>
+	
+	<% if @gallery.gallery_comments.size > 0 %>
+		<div class="galleryCommentsDiv">
+			<h4>Comments:</h4>
+			<%= render :partial => 'shared/commentItem', :collection => @gallery.gallery_comments.reverse %>
+		</div> 
+	<% end %>
+	
+	<div>
+		<%= render :partial => 'shared/addGalleryComment', :locals => {:gallery_id=> @gallery.id} %>
+	</div>
+</div>

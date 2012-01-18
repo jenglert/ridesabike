@@ -1,0 +1,43 @@
+<div class="padding_left_10px">
+    <%= page_title 'Create A New bike' %>
+    <%= error_messages_for :bike %>
+    <% form_for @bike, :html => { :multipart => true } do |f| %>
+    <table>
+    	<tr>
+    		<td><b>Name:</b></td>
+			<td><%= f.text_field :name %></td>
+    	</tr>
+	  	<tr>
+    		<td><b>Manufacturer:</b></td>
+			<td><%= f.text_field :make %></td>
+    	</tr>
+		<tr>
+    		<td><b>Model:</b></td>
+			<td><%= f.text_field :model %></td>
+    	</tr>
+    	<tr>
+    		<td><b>Year:</b></td>
+			<td><%= f.text_field :year %></td>
+    	</tr>
+    	<tr>
+    		<td><b>Picture:</b></td>
+			<td><%= f.file_field :bike_image %></td>
+    	</tr>
+    	<tr>
+    		<td><b>Cost:</b></td>
+			<td><%= f.text_field :cost %></td>
+    	</tr>			
+    	<tr>
+    		<td><b>Description:</b></td>
+			<td><%= f.text_field :description %></td>
+    	</tr>					
+		<tr>
+			<td colspan=2>
+				<%= f.hidden_field :user_id %>
+		        <%= f.submit "Create" %>
+			</td>
+		</tr>
+    </table>   
+    <% end %>
+    <%= link_to 'Back', :back %>
+</div>

@@ -1,0 +1,23 @@
+<% content_for :submenu do %>
+  <% if(logged_in? && current_user.id = @user.id) %>
+    <%= link_to 'edit', :action => 'edit', :id => @user.id %> |
+  <% end %>
+  <%= link_to "View Blog Posts", :controller => 'blog_posts', :action => 'by_user', :id => @user.id%> |
+  <%= link_to "View Pictures", :controller => 'pictures', :action => 'by_user', :id => @user.id%>
+<% end %>
+
+<div class="padding_left_10px">
+	
+  <p class="clear_both" />
+  <%= image_tag @user.imageURL, :border => 0, :alt => @user.imageURL, :class => 'userShowImage' %>
+  <div class="float_left">
+    <%= page_title @user.login %>
+    <div>
+      Age: <%= @user.birthday.nil? ? 'Not telling!' : years_ago(@user.birthday).to_s + 'years old' %>
+      <br />
+      Years Riding: <%=h @user.years_riding.to_s%>
+      <br />
+      Motto: <%=h @user.motto%>
+    </div>
+  </div>
+</div>

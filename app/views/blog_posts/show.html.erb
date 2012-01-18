@@ -1,0 +1,25 @@
+	<% content_for :submenu do %>
+		<% if !current_user.nil? and @blog_post.user_id == current_user.object_id %>
+			<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> | 
+		<% end %>
+		<%= link_to "View Blog Owner's Profile", User.find(@blog_post.user_id) %>
+	<% end%>
+	
+	<div class="padding_left_10px">
+		<h1><%=page_title @blog_post.title %></h1><span>By: <%= User.find(@blog_post.user_id).login%></span>
+		
+		<p>
+		  <%= @blog_post.post %>
+		</p>
+		
+		<div class="blogCommentsDiv" id="blogCommentsDiv">
+			<h4>Comments:</h4>
+ 			<%= render :partial => 'shared/commentItem', :collection => @blog_post.blog_comments.reverse %>
+		</div> 
+		
+		<div>
+			<%= render :partial => 'shared/addBlogComment', :locals => {:blog_post_id=> @blog_post.id} %>
+		</div>
+		
+		<%= link_to 'Back', :back %>
+	</div>

@@ -1,0 +1,6 @@
+<% if galleryItem.pictures.length > 0 %>
+    <%= image_tag(getThumbnail(galleryItem.pictures[0].imageURL)) %><br />
+	<%= link_to truncate(galleryItem.title, 80, '...'), :controller => 'galleries', 
+	                  :action => 'show', :id => galleryItem.id %>
+	 - <%= galleryItem.pictures.length %> pictures
+ <% end %>

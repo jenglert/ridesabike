@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+	<channel>
+		<title>Blogs on ridesabike.com</title>
+		<description>Exciting new blog posts from ridesabike.com</description>
+		<link>http://www.ridesabike.com/blog_posts?utm_medium=rss&amp;utm_campaign=latest_blog_entries</link>
+		<category>Cycling</category>
+		<category>Community</category>
+		<category>Blogging</category>
+		<language>en-us</language>
+		<copyright>Copyright <%= DateTime.now.year %>, ridesabike.com</copyright>
+		<managingEditor>webmaster@ridesabike.com (Jim Englert)</managingEditor>
+		<webmaster>webmaster@ridesabike.com (Jim Englert)</webmaster>
+		<pubDate><%=Time.now.rfc822 %></pubDate>
+		<lastBuildDate><%=Time.now.rfc822 %></lastBuildDate>
+		<image>
+			<title>RidesABike.com</title>
+			<url>http://localhost:3000/images/ridesabikelogo_small.png</url>
+			<link>http://www.ridesabike.com/blog_posts?utm_medium=rss&amp;utm_campaign=latest_blog_entries</link>
+		</image>
+		<% for blogPost in @blog_posts do%>
+			<item>
+				<title><%= blogPost.title %></title>
+				<link>http://www.ridesabike.com<%= url_for blogPost %></link>
+				<guid isPermaLink="true">http://www.ridesabike.com<%= url_for blogPost %></guid>
+				<description><%=h blogPost.post %></description>
+				<pubDate><%= blogPost.created_at.rfc822 %></pubDate>
+			</item>
+		<% end %>
+	</channel>
+</rss>

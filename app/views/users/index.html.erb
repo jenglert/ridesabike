@@ -1,0 +1,11 @@
+<div class="padding_left_10px">
+	<%= page_title "Member's Directory"%>
+	<ul>
+		<% for user in @users%>
+			<li>
+				<%= link_to (image_tag user.imageURL), user %>
+				<%= link_to user.login, user%>
+			</li>
+		<% end %>
+	</ul>
+</div>

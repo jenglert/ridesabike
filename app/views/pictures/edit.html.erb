@@ -1,0 +1,24 @@
+<div class="padding_left_10px">
+	<%= page_title 'Edit Picture'%>
+	
+	<%= error_messages_for :picture %>
+	
+	<% form_for(@picture) do |f| %>
+	  <p>
+	    <%= image_tag( @picture.thumbnail ) %>
+	  </p>
+
+	  <p>
+	    <b>Enter a description for your picture:</b><br />
+	    <%= f.text_area :title, :cols => 60, :rows => 3%>
+	  </p>
+	
+	  <p>
+	    <%= f.submit "Update" %>
+	  </p>
+	<% end %>
+	
+	<%= link_to 'Show', @picture %> |
+	<%= link_to 'Back', :back %> |
+	<%= link_to 'Back To Gallery', @picture.gallery%>
+</div>

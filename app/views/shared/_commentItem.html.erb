@@ -1,0 +1,16 @@
+<div class="individualCommentDiv">
+	<table class="individualCommentTable">
+		<tr>
+			<td>
+				<strong><%= commentItem.title %></strong><span class="commentOwner">by:<%= commentItem.owner %></span>
+			</td>
+			<td class="commentPostTD">
+				<span class="commentPostDate">
+					<%= commentItem.created_at.to_s(:date_time12) %>
+				</span>
+			</td>
+		</tr>
+	</table>
+	&nbsp;&nbsp;&nbsp;
+	<%= commentItem.body %>
+</div>

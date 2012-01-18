@@ -1,0 +1,16 @@
+<% content_for :submenu do %>
+	<% if !current_user.nil? and current_user.id == @picture.user_id%>
+		<%= link_to 'Edit', edit_picture_path(@picture) %> |
+	<% end %>
+	<%= link_to 'View Gallery', @gallery %> |
+	<%= link_to 'View Users Profile', User.find(@picture.user_id) %>
+<% end %>
+
+<div class="padding_left_10px"> 
+    <%=page_title @picture.title, :class=>'pictureViewTitle' %>
+	
+	<p align="center">
+	  <%= link_to image_tag((@picture.mid_size_image || @picture.imageURL), :width => 500 , 
+                 :alt => @picture.title), '../images/' + @picture.imageURL %>
+	</p>
+</div>

@@ -1,0 +1,32 @@
+<div class="randomblogdiv" align="left">
+	
+	<h3 align="center">Latest Blog Posts</h3>
+<%
+	@blogs = BlogPost.find(:all)
+	
+	@blogs.sort! do |a,b|
+		b.created_at <=> a.created_at
+	end
+
+	#todo: resize the list the first 6 or so entries.
+%>
+
+<%  for blog in @blogs	%>
+		<h4><%=link_to blog.title, :controller=> 'blog_posts', :action=> 'show', :id=> blog.id%></h4>
+		<span class="blogauthortext"> by: <%=link_to User.find_by_id(blog.user_id).login, 
+                 :controller=>'biker_view', :id=>blog.user_id%> &nbsp; on: <%=blog.created_at%></span>
+	
+		<div class="blogpost">
+			<%= truncate(blog.post, 150, '...')%>
+		</div>
+<% end %>
+
+</div>
+
+<script type="text/javascript">	
+jQuery(document).ready(function() {
+	// Create the nifty rounded corner outline	
+   	Nifty("div.randomblogdiv","transparent");
+});
+</script>
+	

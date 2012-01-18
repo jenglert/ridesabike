@@ -1,0 +1,34 @@
+	<script type="text/javascript">
+		function showCreateCommentDiv() {
+			jQuery('#createCommentDiv').slideDown('slow');
+		}
+	</script>
+	
+	<div id="createCommentLink">
+		<b><a href="javascript:showCreateCommentDiv()">Comment on this Blog Post!</a></b>	
+	</div>
+	
+	<div id="createCommentDiv" style="display:none">
+	<% form_for(BlogComment.new, :html => {:id => 'blogCommentForm' }) do |f| %>
+	<table>
+		<tr>
+			<td>Name:</td>
+			<td><%= f.text_field :owner, :size => 46 %></td>
+		</tr>
+		<tr>
+			<td>Title:</td>
+			<td><%= f.text_field :title, :size => 46 %></td>
+		</tr>
+		<tr>
+			<td valign="top">Comment:</td>
+			<td><%= f.text_area :body, :rows => 4 %></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<%= f.hidden_field :blog_post_id , :value => blog_post_id %>
+	   			<%= f.submit "Create Comment" %>	
+			</td>
+		</tr>
+	</table>
+	<% end %>
+	</div>

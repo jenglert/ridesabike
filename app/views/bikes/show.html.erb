@@ -1,0 +1,36 @@
+<div class="padding_left_10px">
+	<%= page_title @bike.name%>
+	
+	<p>
+	  <b>Make:</b>
+	  <%=h @bike.make %>
+	</p>
+	
+	<p>
+	  <b>Model:</b>
+	  <%=h @bike.model %>
+	</p>
+	
+	<p>
+	  <b>Year:</b>
+	  <%=h @bike.year %>
+	</p>
+	
+	<p>
+	  <%= image_tag(@bike.imageURL, :border => 0, :alt => @bike.name, :width => '400px' ) %>
+	</p>
+	
+	<p>
+	  <b>Cost:</b>
+	  <%=h @bike.cost %>
+	</p>
+	
+	<p>
+	  <b>Description:</b>
+	  <%=h @bike.description %>
+	</p>
+	
+	
+	<%= link_to 'Edit', edit_bike_path(@bike) %> |
+	<%= link_to 'Back', bikes_path %>
+</div>

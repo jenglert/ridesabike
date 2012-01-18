@@ -1,0 +1,10 @@
+<div class="searchResultDiv <%= last ? '' : 'searchResultDivNotLast' %>">
+<% 	# Obtain a picture from the gallery
+	@gallery= Gallery.find(result.gallery_id)
+	@pictures = Picture.find_all_by_gallery_id(@gallery.id)
+	@picture = @pictures[0]
+%>
+	
+	<%= count.to_s %>. <%= link_to image_tag(getThumbnail(@picture.imageURL), :height => 100), @gallery %>
+	<span class="searchResultItem"><%= link_to result.title, @gallery%></span> <br />
+</div>
